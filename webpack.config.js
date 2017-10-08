@@ -1,11 +1,9 @@
-var debug = process.env.NODE_ENV !== "production";
 var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
   context: path.join(__dirname),
-  devtool: debug ? "inline-sourcemap" : null,
-  entry: "./src/js/root.js",
+  entry: ['webpack/hot/dev-server', path.resolve(__dirname, './src/js/root.js')],
   module: {
     loaders: [
       {
@@ -21,13 +19,15 @@ module.exports = {
       { test: /\.css$/, loader: 'style-loader!css-loader' }
     ]
   },
+  devServer: {
+        inline: true,
+        port: 3000
+  },
   output: {
     path: __dirname,
     filename: "./src/bundle.js",
   },
-  plugins: debug ? [] : [
-    new webpack.optimize.DebugPlugin(),
-    new webpack.optimize.OcurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
   ]
 };
