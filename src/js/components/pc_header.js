@@ -1,21 +1,79 @@
 import React from 'react';
 import {Row, Col} from 'antd';
-import {Menu, Icon} from 'antd';
+import {Menu, Icon, Tabs, message, Form, Input, Button, CheckBox, Modal} from 'antd';
+const FormItem = Form.Item;
 const SubMenu = Menu.SubMenu;
+const TabPane = Tabs.TabPane;
 const MenuItemGroup = Menu.ItemGroup;
 
-export default class PCHeader extends React.Component {
+class PCHeader extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			current: 'top'
+            current: 'top',
+            modalVisible: false,
+            action: 'login',
+            hasLogined: false,
+            userNickName: '',
+            userid: 0
 		};
-	}
+	};
+	setModalVisible(value){
+		this.setState({ modalVisible: value });
+	};
+	handleClick(e){
+		if(e.key === "register"){
+			this.setState({current: 'register'});
+			this.setModalVisible(true);
+		}else {
+			this.setState({current: e.key});
+		}
+	};
+    handleSubmit(e) {
+        //页面开始向 API 进行提交数据
+        e.preventDefault();
+        let myFetchOptions = {
+            method: 'GET'
+        };
+        let formData= this.props.form.getFieldsValue();
+        console.log(formData);
+        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=register&username=userName&password=password&r_userName="+formData.r_userName+"&r_password="+formData.r_password+"&r_confirmPassword="+formData.r_confirmPassword,myFetchOptions).
+        then(response=>response.json()).then(json=>{
+            this.setState({userNickName:json.NickUserName,userid:json.UserId});
+
+        });
+        message.success("请求成功！");
+        this.setModalVisible(false);
+    };
 	render() {
-		return (
+        let {getFieldProps} = this.props.form;
+        const formItemLayout = {
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 6 },
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 14 },
+            },
+        };
+		const userShow = this.state.hasLogined
+			? <Menu.Item key="logout" class="register">
+				<Button type="primary" htmltype="button">{this.state.userNickName}</Button>
+				&nbsp;&nbsp;
+				<Link target="_blank">
+					<Button type="dashed" htmlType="button">个人中心</Button>
+				</Link>
+				&nbsp;&nbsp;
+				<Button type="ghost" htmlType="button">退出</Button>
+			</Menu.Item>
+			: <Menu.Item key="register" class="register">
+				<Icon type="appstore"/>注册/登录
+			</Menu.Item>
+ 		return (
 			<header>
 				<Row>
-					<Col span={2}></Col>
+					<Col span={2}> </Col>
 
 					<Col span={4}>
 						<a herf="/" class="logo">
@@ -24,7 +82,7 @@ export default class PCHeader extends React.Component {
 						</a>
 					</Col>
 					<Col span={16}>
-						<Menu mode="horizontal" selectedKeys={[this.state.current]}>
+						<Menu mode="horizontal" selectedKeys={[this.state.current]} onClick={this.handleClick.bind(this)}>
 							<Menu.Item key="top">
 								<Icon type="appstore"/>头条
 							</Menu.Item>
@@ -49,15 +107,36 @@ export default class PCHeader extends React.Component {
 							<Menu.Item key="shishang">
 								<Icon type="appstore"/>时尚
 							</Menu.Item>
+							{userShow}
 						</Menu>
+						<Modal title="用户中心" wrapClassName="vertical-center-modal" visible={this.state.modalVisible} onCancel={()=>this.setModalVisible(false)
+						} onOk={() => this.setModalVisible(false)} okText = "关闭">
+							<Tabs type="card">
+								<TabPane tab="注册" key="2" onSubmit={this.handleSubmit.bind(this)}>
+									<Form horicontal>
+										<FormItem label="账户" {...formItemLayout}>
+											<Input type="text" placeholder="请输入您的账号" {...getFieldProps('r_userName')}/>
+										</FormItem>
+										<FormItem label="密码" {...formItemLayout}>
+											<Input type="password" placeholder="请输入您的密码" {...getFieldProps('r_password')}/>
+										</FormItem>
+										<FormItem label="确认密码" {...formItemLayout}>
+											<Input type="password" placeholder="请再次输入您的账号" {...getFieldProps('r_confirmPassword')}/>
+										</FormItem>
+										<Button type="primary" htmlType="submit" {...tailFormItemLayout}>注册</Button>
+									</Form>
+								</TabPane>
+							</Tabs>
+						</Modal>
 					</Col>
-					<Col span={2}></Col>
+					<Col span={2}> </Col>
 
 				</Row>
 			</header>
 
 
 
-		)
-	}
+		);
+	};
 }
+export default PCHeader = Form.create({})(PCHeader);
