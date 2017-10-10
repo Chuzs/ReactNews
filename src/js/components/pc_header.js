@@ -123,7 +123,7 @@ class PCHeader extends React.Component {
 										<FormItem label="确认密码" {...formItemLayout}>
 											<Input type="password" placeholder="请再次输入您的账号" {...getFieldProps('r_confirmPassword')}/>
 										</FormItem>
-										<Button type="primary" htmlType="submit" {...tailFormItemLayout}>注册</Button>
+										<Button type="primary" htmlType="submit">注册</Button>
 									</Form>
 								</TabPane>
 							</Tabs>

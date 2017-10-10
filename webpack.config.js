@@ -28,6 +28,10 @@ module.exports = {
     filename: "./src/bundle.js",
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./manifest.json'),
+        }),
+    new webpack.HotModuleReplacementPlugin(),
   ]
 };
