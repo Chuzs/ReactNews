@@ -33,6 +33,12 @@ class MobileHeader extends React.Component {
     {
         this.setState({modalVisible: value});
     };
+    /**
+     * 
+     * 
+     * @param {any} e 
+     * @memberof MobileHeader
+     */
     handleClick(e) {
         if (e.key = "register") {
             this.setState({current: 'register'});
