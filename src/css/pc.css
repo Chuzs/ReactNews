@@ -170,7 +170,6 @@ iframe {
 {
   display: inline-block !important;
 }
-<<<<<<< HEAD
 
 
 /*Footer******Start*****/
@@ -435,18 +434,3 @@ iframe {
     margin-top: -.21rem;
     left: .66rem
 }
-=======
-.container{
-    padding-top: 10px;
-}
-
-.leftContainer {
-    width: 400px;
-    float: left;
-}
-
-.carousel {
-    width: 400px;
-    float: left;
-}
->>>>>>> 0725e8892dd90ff3053a90441ad27afcc6903a6e
