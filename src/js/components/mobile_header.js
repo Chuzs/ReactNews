@@ -34,7 +34,7 @@ class MobileHeader extends React.Component {
         this.setState({modalVisible: value});
     };
     /**
-     * 
+     * dfd
      * 
      * @param {any} e 
      * @memberof MobileHeader
