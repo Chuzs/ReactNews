@@ -52,7 +52,6 @@
 .usercenter {
     float: right !important;
 }
-<<<<<<< HEAD
 
 #container {
     text-align: center !important;
@@ -164,8 +163,6 @@ iframe {
     font-size: 12px !important;
 }
 
-=======
->>>>>>> 0725e8892dd90ff3053a90441ad27afcc6903a6e
 .ant-menu-horizontal > .ant-menu-item > a, .ant-menu-horizontal > .ant-menu-submenu > a
 {
   display: inline-block !important;

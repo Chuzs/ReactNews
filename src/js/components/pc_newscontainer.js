@@ -2,10 +2,7 @@ import React from 'react';
 import {Row, Col} from 'antd';
 import {Tabs,Carousel} from 'antd';
 import PCNewsBlock from './pc_news_block';
-<<<<<<< HEAD
 import PCNewsImageBlock from './pc_news_image_block';
-=======
->>>>>>> 0725e8892dd90ff3053a90441ad27afcc6903a6e
 const TabPane = Tabs.TabPane;
 export default class PCNewsContainer extends React.Component {
     render(){
