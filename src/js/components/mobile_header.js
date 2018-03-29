@@ -35,7 +35,7 @@ class MobileHeader extends React.Component {
     };
     /**
      * dfd
-     * 
+     * fdfd
      * @param {any} e 
      * @memberof MobileHeader
      */
